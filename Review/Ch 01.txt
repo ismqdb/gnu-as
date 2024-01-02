@@ -27,3 +27,28 @@ Use the concepts
             First name: 30 bytes
             Last name:  30 bytes, start+30 bytes
             Email       30 bytes, start+60 bytes
+    02.
+        Direct addressing mode.
+    03.
+        Address 3142.
+    04.
+        Address 6532.
+    05.
+        Address 123472.
+    06.
+        Address 9123498
+
+Going further
+    01.
+        Two. Immediate mode and direct addressing mode.
+    02.
+        To make it easier for a programmer to write programs.
+    03.
+        Pipelinening splits the fetch-execute cycle into separate steps,
+        which are executed concurrently by different processor units.
+        It is similar to multithreading (at conceptual level, at least)
+        but different parts of one function are executed simultaneously,
+        compared to multiple functions when multithreading.
+    04.
+        Advantage of fixed-length instructions is that you know where the next instruction begins.
+        Advantage of variable-length instructions is that you don't use more bytes than you need to for an instruction or that you can embedded more smaller instructions into one bigger one.
