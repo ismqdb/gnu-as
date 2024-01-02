@@ -1,2 +1,29 @@
 Know the concepts
     01. 
+        The program counter fetches the address of the next instruction.
+        Decoder decodes the instruction, gathers resources and executes it.
+    02.
+        Register is a memory location that is available on CPU itself, as opposed 
+        to memory.
+        Computation would be much slower, in regards to execution speed.
+        We would need to use memory to store all information, which would 
+        cause more typing and more memory addresses that programmer would 
+        need to remember.
+    03.
+        By using more bytes to represent it.
+    04.
+        4 bytes or 32 bits.
+    05.
+        Each instruction has a predefined opcode.
+        If decoder fetches a value that matches one of the opcodes, it executes it.
+    06. 
+        Addressing modes are ways which we use to move data around.
+    07.
+        Points to the address of the next instruction that will be executed.
+
+Use the concepts
+    01.
+        Employee record:
+            First name: 30 bytes
+            Last name:  30 bytes, start+30 bytes
+            Email       30 bytes, start+60 bytes
