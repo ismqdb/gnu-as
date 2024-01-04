@@ -1,0 +1,9 @@
+{
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/home/ismqdb/Desktop/Projekti/gas/sample",
+            "binaryPath": "/home/ismqdb/Desktop/Projekti/gas/sample/sample",
+            "binaryArgs": []
+        }
+    ]
+}

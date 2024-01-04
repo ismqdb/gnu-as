@@ -1,20 +1,22 @@
-.data
-    string:
-        .string "Hello, World!\n"
-    lenght = . - string
+.section .data
+    hello_msg:
+        .ascii "Hello, World!"
 
-.text
+.section .text
     .globl _start
 
 _start:
-    # write the string to stdout
-    movl $4, %eax          # syscall: write
-    movl $1, %ebx          # file descriptor: STDOUT
-    movl $string, %ecx     # pointer to the string
-    movl $lenght, %edx     # length of the string
-    int $0x80              # interrupt to invoke the kernel
+    # write syscall (write to stdout)
+    mov $1, %rax            # syscall number for sys_write
+    mov $1, %rdi            # file descriptor 1 (stdout)
+    mov $hello_msg, %rsi    # pointer to the message
+    mov $13, %rdx           # message length
 
-    # exit the program
-    movl $1, %eax          # syscall: exit
-    xorl %ebx, %ebx        # exit code 0
-    int $0x80              # interrupt to invoke the kernel
+    movb $77, 0x402000
+
+    syscall
+
+    # exit syscall
+    mov $60, %rax           # syscall number for sys_exit
+    xor %rdi, %rdi          # exit code 0
+    syscall
