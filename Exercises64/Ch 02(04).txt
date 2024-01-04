@@ -1,0 +1,53 @@
+01.
+    .globl _start
+    .section .text
+
+    _start:
+        movq $3, %rsi
+        movq %rsi, %rax
+        addq %rsi, %rax
+        mulq %rsi
+        movq $2, %rsi
+        addq %rsi, %rax
+        movq $4, %rsi
+        mulq %rsi
+        movq %rax, %rsi
+
+        movq $60, %rax
+        syscall
+
+02.
+    -
+
+03.
+    Error: `%rax' not allowed with `movb'
+
+04.
+    .globl _start
+    .section .text
+
+    _start:
+        movw $0b1111111111111111, %ax
+        movq %rax, %rdi
+
+        movq $60, %rax
+        syscall
+
+05.
+    .globl _start
+    .section .text
+
+    _start:
+        movb $0xF, %al
+
+        movw $0xF0, %ax
+        addw $0x0F, %ax
+
+        movl $0xFF00, %eax
+        addl $0x00FF, %eax
+
+        movq $0xFFFF0000, %rax
+        addq $0x0000FFFF, %rax
+
+        movq $60, %rax
+        syscall
