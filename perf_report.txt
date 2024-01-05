@@ -1,0 +1,19 @@
+# To display the perf.data header info, please use --header/--header-only options.
+#
+#
+# Total Lost Samples: 0
+#
+# Samples: 3  of event 'instructions:u'
+# Event count (approx.): 11
+#
+# Overhead  Command  Shared Object  Symbol        
+# ........  .......  .............  ..............
+#
+    81.82%  sample   sample         [.] END_MARKER
+     9.09%  sample   sample         [.] _start
+     9.09%  sample   sample         [.] loop
+
+
+#
+# (Tip: To show context switches in perf report sample context add --switch-events to perf record.)
+#
