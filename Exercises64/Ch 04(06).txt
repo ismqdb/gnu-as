@@ -1,0 +1,114 @@
+01.
+    -
+
+02.
+    Starts from the 3rd element and goes backwards.
+
+03.
+    Either segfaults or 
+    prints garbage value as a result.
+    Either way, goes beyond the limit of declared 
+    array.
+
+04.
+    .globl _start
+
+    .section .data
+        numberofelements:
+            .quad 7
+        mynumbers:
+            .quad 5, 20, 33, 80, 52, 10, 1
+
+    .section .text
+
+    _start:
+        movq numberofelements, %rcx
+
+        movq $0, %rbx
+        movq $0xFFFFFFFFFFFFFFFF, %rdi
+
+        cmp $0, %rcx
+        je endloop
+
+        myloop:
+            movq mynumbers-8(,%rcx,8), %rax
+            cmp %rdi, %rax
+            jae loopcontrol
+            movq %rax, %rdi
+
+        loopcontrol:
+            loopq myloop
+
+        endloop:
+            movq $60, %rax
+            syscall
+
+05.
+    .globl _start
+
+    .section .data
+        numberofelements:
+            .quad 7
+        mynumbers:
+            .quad 5, 20, 33, 80, 52, 10, 1
+        num:
+            .quad 3
+
+    .section .text
+
+    _start:
+    movq numberofelements, %rcx
+    movq $mynumbers, %rbx
+    movq num, %rdx
+
+    myloop:
+        movq (%rbx), %rax
+        cmp %rax, %rdx 
+        je found
+        addq $8, %rbx
+        loopq myloop
+
+    cmp $0, %rcx
+    je notfound  
+
+    found:
+        mov $1, %rdi  
+        jmp endloop
+
+    notfound:
+        mov $0, %rdi
+        jmp endloop
+
+    endloop:
+        movq $60, %rax
+        syscall
+        movq numberofelements, %rcx
+        movq $mynumbers, %rbx
+        movq num, %rdx
+
+        myloop:
+            movq (%rbx), %rax
+            cmp %rax, %rdx 
+            je found
+            addq $8, %rbx
+            loopq myloop
+
+        cmp $0, %rcx
+        je endloop    
+
+        found:
+            mov $1, %rdi  
+            jmp endloop
+
+        notfount:
+            mov $0, %rdi
+            jmp endloop
+
+        endloop:
+            movq $60, %rax
+            syscall
+
+06.
+    found:
+        mov %rcx, %rdi  
+        jmp endloop
