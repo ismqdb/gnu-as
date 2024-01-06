@@ -11,26 +11,21 @@
 _start:
     movq numberofelements, %rcx
 
-    movq $0, %rbx
+    movq $mynumbers, %rbx
     movq $0, %rdi
 
     cmp $0, %rcx
     je endloop
 
     myloop:
-        movq mynumbers-8(,%rcx,8), %rax
+        movq (%rbx), %rax
         cmp %rdi, %rax
         jbe loopcontrol
         movq %rax, %rdi
 
     loopcontrol:
+        addq $8, %rbx
         loopq myloop
-
-    mov %rdi, %rsi
-    mov $1, %rdi
-    mov $1, %rdx
-    mov $1, %rax
-    syscall
 
     endloop:
         movq $60, %rax

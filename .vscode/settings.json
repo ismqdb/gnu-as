@@ -4,6 +4,11 @@
             "cwd": "/home/ismqdb/Desktop/Projekti/gas/sample",
             "binaryPath": "/home/ismqdb/Desktop/Projekti/gas/sample/sample",
             "binaryArgs": []
+        },
+        {
+            "cwd": "/home/ismqdb/Desktop/Projekti/GAS/sample",
+            "binaryPath": "/home/ismqdb/Desktop/Projekti/GAS/sample/sample",
+            "binaryArgs": []
         }
     ]
 }

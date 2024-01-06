@@ -18,19 +18,14 @@ _start:
     je endloop
 
     myloop:
-        movq mynumbers-8(,%rcx,8), %rax
+        movq mynumbers(,%rbx,8), %rax
         cmp %rdi, %rax
         jbe loopcontrol
         movq %rax, %rdi
 
     loopcontrol:
+        incq %rbx
         loopq myloop
-
-    mov %rdi, %rsi
-    mov $1, %rdi
-    mov $1, %rdx
-    mov $1, %rax
-    syscall
 
     endloop:
         movq $60, %rax
