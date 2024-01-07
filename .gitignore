@@ -1,3 +1,4 @@
 /__.vscode
 /sample
-/sample.o
+./*.s
+*.o
