@@ -7,8 +7,8 @@ ASFLAGS = -g --64 --gstabs
 
 TARGET = sample
 SRC = sample.s
-DEP1 = persondata.s
-DEP1_TAR = persondata
+DEP1_TAR = dep1
+DEP1 = $(DEP1_TAR).s
 
 all: $(TARGET)
 
@@ -20,7 +20,7 @@ $(TARGET): $(SRC)
 .PHONY: clean run
 
 clean:
-	rm -f $(TARGET) $(TARGET).o
+	rm -f $(TARGET) $(TARGET).o $(DEP1_TAR).o
 
 run: $(TARGET)
 	./$(TARGET)

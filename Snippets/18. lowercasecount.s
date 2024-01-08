@@ -3,7 +3,7 @@
     mytext:
         .ascii "This is a string of characters.\0"
 
-.section .text
+.section text
     _start:
         movq $mytext, %rbx
 
@@ -16,7 +16,7 @@
 
             # Go to the next byte
             # if the value isn't between 'a' and 'z'
-            cmpb $'a', %al
+            cmpb %'a', %al
             jb loopcontrol
 
             cmpb $'z', %al
@@ -30,5 +30,5 @@
             jmp mainloop
 
         finish:
-            movq $60, %rax
+            movq %60, %rax
             syscall
