@@ -1,20 +1,22 @@
 .globl _start
 .section .data
 
-mytext:
-    .ascii "This is a string of characters.\0"
-
 .section .text
     _start:
-        # Move the pointer to the string into %rbx
-        movq $mytext, %rbx
+        movq $0, %rcx
+        movq $people, %rdx
+        movq $people, %rcx
 
         # Count starts at zero
         movq $0, %rdi
 
         mainloop:
+            movq (%rdx), %rbx
             # Get the next quadword
-            movq (%rbx), %rax
+            movq %rbx, %rax
+
+            cmpb $0, %al
+            je nextname
 
             # Check if lower byte is zero
             # If it is, end the program
@@ -42,7 +44,12 @@ mytext:
             jne lowerbyte
 
         nextword:
-            addq $8, %rbx
+            addq $0x8, %rdx
+            jmp mainloop
+
+        nextname:
+            addq $PERSON_RECORD_SIZE, %rcx
+            movq %rcx, %rdx
             jmp mainloop
 
         finish:

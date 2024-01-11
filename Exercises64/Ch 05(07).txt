@@ -1,0 +1,34 @@
+01.
+    Position of the cursor:
+        (x, y) -> Position
+    Pixels on the screen:
+        Position would be relative to some other value.
+        Different monitor have diff pixel count.
+
+02.
+    Depends on the type of data.
+    For numbers, smallest type that can hold all values.
+    For single character, one byte.
+    For array of chars, either predefined number of bytes
+    or pointer to location.
+
+03.
+    Date of birth, email address, etc...
+
+04.
+    We would create an new instance of mother/father
+    record and we would then add a pointer to that record
+    to the original structure.
+
+05.
+    mainloop:
+        cmpq $2, HAIR_OFFSET(%rbx)
+        jne endloop
+
+        cmpq $3, HAIR_OFFSET(%rbx)
+        jne endloop
+
+        incq %rdi
+
+06.
+    

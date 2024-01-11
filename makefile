@@ -1,26 +1,32 @@
-# Makefile for 64-bit GAS program on Linux using as
+# Makefile for GNU Assembly project
 
+# Compiler and linker
 AS = as
 LD = ld
 
+# Flags for the assembler
 ASFLAGS = -g --64 --gstabs
 
-TARGET = sample
-SRC = sample.s
-DEP1_TAR = dep1
-DEP1 = $(DEP1_TAR).s
+# Source files
+SRC_FILES = sample.s dep1.s
 
-all: $(TARGET)
+# Object files
+OBJ_FILES = $(SRC_FILES:.s=.o)
 
-$(TARGET): $(SRC)
-	$(AS) $(ASFLAGS) -o $(DEP1_TAR).o $(DEP1)
-	$(AS) $(ASFLAGS) -o $(TARGET).o $(SRC)
-	$(LD) -m elf_x86_64 -o $(TARGET) $(TARGET).o $(DEP1_TAR).o
+# Executable name
+EXECUTABLE = sample
 
-.PHONY: clean run
+# Default target
+all: $(EXECUTABLE)
 
+# Rule to assemble source files into object files
+%.o: %.s
+	$(AS) $(ASFLAGS) -o $@ $<
+
+# Rule to link object files into the executable
+$(EXECUTABLE): $(OBJ_FILES)
+	$(LD) -o $@ $^
+
+# Clean target to remove object files and the executable
 clean:
-	rm -f $(TARGET) $(TARGET).o $(DEP1_TAR).o
-
-run: $(TARGET)
-	./$(TARGET)
+	rm -f $(OBJ_FILES) $(EXECUTABLE)
