@@ -3,55 +3,20 @@
 
 .section .text
     _start:
-        movq $0, %rcx
-        movq $people, %rdx
-        movq $people, %rcx
+        movq $people, %rbx
+        movq $0, %rdx
 
-        # Count starts at zero
-        movq $0, %rdi
+        nextperson:
+            leaq AGE_OFFSET(%rbx), %rax
+            cmpq (%rax), %rdx
+            ja endloop
 
-        mainloop:
-            movq (%rdx), %rbx
-            # Get the next quadword
-            movq %rbx, %rax
+            movq (%rax), %rdi
 
-            cmpb $0, %al
-            je nextname
-
-            # Check if lower byte is zero
-            # If it is, end the program
-            cmpb $0x20, %al
-            jb finish
-            
-        lowerbyte:
-            cmpb $'a', %al
-            jb upperbyte
-            cmpb $'z', %al
-            ja upperbyte
-            incq %rdi
-
-        upperbyte:
-            cmpb $'a', %ah
-            jb shiftbytes
-            cmpb $'z', %al
-            ja shiftbytes
-            incq %rdi
-
-        shiftbytes:
-            shr $16, %rax
-            cmpb $0, %al
-            je nextword
-            jne lowerbyte
-
-        nextword:
-            addq $0x8, %rdx
-            jmp mainloop
-
-        nextname:
-            addq $PERSON_RECORD_SIZE, %rcx
-            movq %rcx, %rdx
-            jmp mainloop
-
+            endloop:
+                addq $PERSON_RECORD_SIZE, %rbx
+                jmp nextperson
+        
         finish:
             movq $60, %rax
             syscall
