@@ -9,6 +9,11 @@
             "cwd": "/home/ismqdb/Desktop/Projekti/GAS/sample",
             "binaryPath": "/home/ismqdb/Desktop/Projekti/GAS/sample/sample",
             "binaryArgs": []
+        },
+        {
+            "cwd": "/run/media/ismqdb/Data/{ PROJEKTI }/[PROGRAMIRANJE]/GAS/sample",
+            "binaryPath": "/run/media/ismqdb/Data/{ PROJEKTI }/[PROGRAMIRANJE]/GAS/sample/sample",
+            "binaryArgs": []
         }
     ]
 }
