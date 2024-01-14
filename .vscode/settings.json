@@ -14,6 +14,16 @@
             "cwd": "/run/media/ismqdb/Data/{ PROJEKTI }/[PROGRAMIRANJE]/GAS/sample",
             "binaryPath": "/run/media/ismqdb/Data/{ PROJEKTI }/[PROGRAMIRANJE]/GAS/sample/sample",
             "binaryArgs": []
+        },
+        {
+            "cwd": "/media/ismqdb/Data/{ PROJEKTI }/[PROGRAMIRANJE]/GAS/sample",
+            "binaryPath": "/media/ismqdb/Data/{ PROJEKTI }/[PROGRAMIRANJE]/GAS/sample/sample",
+            "binaryArgs": []
+        },
+        {
+            "cwd": "/home/ismqdb/Desktop/projekti/GAS/sample",
+            "binaryPath": "/home/ismqdb/Desktop/projekti/GAS/sample/sample",
+            "binaryArgs": []
         }
     ]
 }

@@ -1,7 +1,7 @@
 .section .data
     .globl people, numpeople
     numpeople:
-        .quad (endpeople-people)/PERSON_RECORD_SIZE
+        #.quad (endpeople-people)/PERSON_RECORD_SIZE
     people:
         # Array of people
         .quad $gkcname, 200, 10, 2, 74, 20
