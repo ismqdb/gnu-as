@@ -3,23 +3,25 @@
 
 .section .text
     _start:
-        movq $people, %rbx
-        movq $0, %rdx
+        movq $0b01111111, %rax
+        movq $0, %rcx
 
-        movq $0, %rcx        
+        rotate:
+            cmpq $0, %rax
+            jz setreturnvalue
 
-        nextperson:
-            leaq AGE_OFFSET(%rbx), %rax
-            cmpq (%rax), %rdi
-            jae endloop
+            cmpq $0x00000001, %rax
+            jz nextbit
 
-            movq (%rax), %rdi
+            incq %rcx
 
-            endloop:
-                addq $PERSON_RECORD_SIZE, %rbx
-                incq %rcx
-                cmpq %rcx, numpeople
-                jnz nextperson
+            nextbit:
+                shr $1, %rax
+                jmp rotate 
+
+        setreturnvalue:
+            movq %rcx, %rdi
+            jmp finish     
         
         finish:
             movq $60, %rax

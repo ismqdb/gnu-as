@@ -1,0 +1,53 @@
+01.
+    .globl _start
+    .section .data
+
+    .section .text
+        _start:
+            movb $0b01111111, %al
+            addb $0b00000000, %al
+
+            jo overflow
+            jno nooverflow
+
+            overflow:
+                movq $1, %rdi
+                jmp finish
+
+            nooverflow:
+                movq $0, %rdi
+                jmp finish        
+            
+            finish:
+                movq $60, %rax
+                syscall
+
+02.
+    .globl _start
+    .section .data
+
+    .section .text
+        _start:
+            movq $0b01111111, %rax
+            movq $0, %rcx
+
+            rotate:
+                cmpq $0, %rax
+                jz setreturnvalue
+
+                cmpq $0x00000001, %rax
+                jz nextbit
+
+                incq %rcx
+
+                nextbit:
+                    shr $1, %rax
+                    jmp rotate 
+
+            setreturnvalue:
+                movq %rcx, %rdi
+                jmp finish     
+            
+            finish:
+                movq $60, %rax
+                syscall

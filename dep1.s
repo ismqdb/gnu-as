@@ -4,12 +4,12 @@
         #.quad (endpeople-people)/PERSON_RECORD_SIZE
     people:
         # Array of people
-        .quad $gkcname, 200, 10, 2, 74, 20
-        .quad $jbname, 280, 12, 2, 72, 44 # me!
-        .quad $cslname, 150, 8, 1, 68, 30
-        .quad $taname, 250, 14, 3, 75, 24
-        .quad $inname, 250, 10, 4, 70, 11
-        .quad $gmname, 180, 11, 5, 69, 65
+        .quad gkcname, 200, 10, 2, 74, 20
+        .quad jbname, 280, 12, 2, 72, 44 # me!
+        .quad cslname, 150, 8, 1, 68, 30
+        .quad taname, 250, 14, 3, 75, 24
+        .quad inname, 250, 10, 4, 70, 11
+        .quad gmname, 180, 11, 5, 69, 65
     endpeople:
 
     gkcname:
