@@ -3,25 +3,45 @@
 
 .section .text
     _start:
-        movq $0b01111111, %rax
+        # Longest name
+        movq $0, %rdi
+
+        # Name index
         movq $0, %rcx
 
-        rotate:
-            cmpq $0, %rax
-            jz setreturnvalue
+        # Pointer to name
+        movq $people, %rbx
 
-            cmpq $0x00000001, %rax
-            jz nextbit
+        checkname:
+            movq %rbx, %rax
+            addq %rcx, %rax
+
+            cmpq $0, (%rax)
+            je nextname
+
+            #jmp isletter # is %rax a letter?
 
             incq %rcx
+            jmp checkname
 
-            nextbit:
-                shr $1, %rax
-                jmp rotate 
+        nextname:
+            addq $PERSON_RECORD_SIZE, %rbx
+            movq $0, %rcx
+            cmpq %rcx, %rdi
+            jg newbiggest
 
-        setreturnvalue:
+        newbiggest:
             movq %rcx, %rdi
-            jmp finish     
+            jmp nextname
+
+        isletter:
+            movq $0, %rsi
+
+        isLowercaseLetter:
+            
+
+        isUppercaseLetter:
+
         
         finish:
             movq $60, %rax
