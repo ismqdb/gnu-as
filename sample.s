@@ -19,7 +19,7 @@
             cmpq $0, (%rax)
             je nextname
 
-            #jmp isletter # is %rax a letter?
+            
 
             incq %rcx
             jmp checkname
