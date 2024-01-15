@@ -7,9 +7,13 @@
         movq $0, %rdi
 
         # Name index
-        movq $0, %rcx
+        movq numpeople, %rcx
 
-        
+        peopleIterator:
+            cmpq $0, %rcx
+            je finish
+
+            loopq peopleIterator
         
         finish:
             movq $60, %rax
