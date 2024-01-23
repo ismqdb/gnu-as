@@ -1,19 +1,17 @@
 .globl _start
 .section .data
 
+value:
+    .quad 50
+
 .section .text
-    _start:
-        # Longest name
-        movq $0, %rdi
+    _start:        
+        movq $value, %rax
 
-        # Name index
-        movq numpeople, %rcx
+        movq $20, (%rax)
 
-        peopleIterator:
-            cmpq $0, %rcx
-            je finish
-
-            loopq peopleIterator
+        incq %rax
+        movq $30, (%rax)
         
         finish:
             movq $60, %rax
