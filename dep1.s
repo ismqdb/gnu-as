@@ -31,4 +31,4 @@
     .equ AGE_OFFSET, 64
 
     .globl PERSON_RECORD_SIZE
-    .equ PERSON_RECORD_SIZE, 64
+    .equ PERSON_RECORD_SIZE, 72
