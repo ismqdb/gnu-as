@@ -8,18 +8,13 @@
         .ascii "Even\n"
     mystring_end2:
         .equ mystring_length2, mystring_end2-mystring2
-    len:
-        .quad 10
+    num:
+        .quad 24
     
 
 .section .text
     _start:
-        xor %rax, %rax
-        xor %rbx, %rbx
-        xor %rcx, %rcx
-        xor %rdx, %rdx
-
-        movq len, %rax
+        movq num, %rax
         movq $2, %rbx
         divq %rbx
         cmpq $0, %rdx
@@ -35,11 +30,7 @@
             movq $mystring1, %rsi
             movq $mystring_length1, %rdx        
             syscall
-            
-            decq len
-            cmpq $0, len
-            je finish
-            jne _start
+            jmp finish
 
         even:
             movq $1, %rax
@@ -51,11 +42,7 @@
             movq $mystring_length2, %rdx
             
             syscall
-
-            decq len
-            cmpq $0, len
-            je finish
-            jne _start
+            jmp finish
         
     finish:
         movq $0x3c, %rax
