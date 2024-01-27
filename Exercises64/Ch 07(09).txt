@@ -2,4 +2,10 @@
     See bit5.s for implementation.
 
 02.
-    
+    See strlen.s for implementation.
+
+03.
+    See firstValueIndex.s for implementation.
+
+04.
+    See commonBits.s for implementation.
