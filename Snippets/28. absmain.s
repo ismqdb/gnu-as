@@ -1,8 +1,8 @@
-.globl _start
+.globl main
 .section .data
 
 .section .text
-    _start:
+    main:
         movq $-5, %rdi
         call abs
         ret
