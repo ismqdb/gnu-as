@@ -25,7 +25,7 @@ all: $(EXECUTABLE)
 
 # Rule to link object files into the executable
 $(EXECUTABLE): $(OBJ_FILES)
-	$(LD) -o $@ $^
+	$(LD) -static -lc -o $@ $^
 
 # Clean target to remove object files and the executable
 clean:
