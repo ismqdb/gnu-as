@@ -1,10 +1,13 @@
 .globl _start
-.section .data    
+.section .data
+    num:
+        .quad 25
 
 .section .text
     _start:
-        movq $4, %rdi
-        call factorial
+        movq num, %rax
+        movq num, %rdi
+        call factOrExp
         
     finish:
         movq %rax, %rdi
