@@ -17,11 +17,14 @@ factOrExp:
     jz factorial
     jnz exponent
 
+    finish:
+    movq %rax, %rdi
     popq %rdx
     popq %rbx
     popq %rax
 
-    ret
+    leave
+    jmp programEnd
 
 factorial:
     pushq %rbp
@@ -34,6 +37,8 @@ factorial:
     movq $1, %rax
     movq %rbp, %rsp
     popq %rbp
+
+    leave
     ret
 
 factcontinue:
@@ -47,6 +52,8 @@ factcontinue:
 
 exponent:
     enter $16, $0
+    movq %rdi, %rax
+
     pushq %rsi
     pushq %rax
 
@@ -55,12 +62,11 @@ exponent:
     movq $1, %rax
 
     movq %rsi, -8(%rbp)
+    jmp expmainloop
 
 expmainloop:
+
     mulq %rdi
     decq -8(%rbp)
-    jnz expmainloop
-    popq %rax
-    popq %rsi
-    leave
-    ret
+    jnz expmainloop    
+    jmp finish
