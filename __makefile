@@ -1,10 +1,11 @@
 # Makefile for GNU Assembly project
 
 # Compiler and linker
-CC = gcc
+AS = as
+LD = ld
 
-# Flags for the compiler
-CFLAGS = -static -m64
+# Flags for the assembler
+ASFLAGS = -g --64 --gstabs
 
 # Source files
 SRC_FILES = sample.s dep1.s
@@ -20,11 +21,11 @@ all: $(EXECUTABLE)
 
 # Rule to assemble source files into object files
 %.o: %.s
-	$(CC) $(CFLAGS) -c -o $@ $<
+	$(AS) $(ASFLAGS) -o $@ $<
 
 # Rule to link object files into the executable
 $(EXECUTABLE): $(OBJ_FILES)
-	$(CC) $(CFLAGS) -o $@ $^
+	$(LD) -o $@ $^ -lc  # Adjusted linking command
 
 # Clean target to remove object files and the executable
 clean:
