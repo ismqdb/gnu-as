@@ -4,7 +4,7 @@
 CC = gcc
 
 # Flags for the compiler
-CFLAGS = -static -m64
+CFLAGS = -static -m64 -g
 
 # Source files
 SRC_FILES = sample.s dep1.s
