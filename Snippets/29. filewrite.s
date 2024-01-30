@@ -22,20 +22,31 @@
 
 .section .text
     main:
-        movq stdout, %rdi
+        enter $16, $0
+
+        movq $filename, %rdi
+        movq $openmode, %rsi
+        call fopen
+
+        movq %rax, -8(%rbp)
+
+        movq -8(%rbp), %rdi
         movq $formatstring1, %rsi
         movq $sallyname, %rdx
         movq sallyage, %rcx
         movq $0, %rax
         call fprintf
 
-        movq stdout, %rdi
+        movq -8(%rbp), %rdi
         movq $formatstring2, %rsi
         movq joshfavoritefirst, %rdx
         movq joshfavoritesecond, %rcx
         movq $joshname, %r8
         movq $0, %rax
         call fprintf
+
+        movq -8(%rbp), %rdi
+        call fclose
         
     programEnd:
         movq $60, %rax
