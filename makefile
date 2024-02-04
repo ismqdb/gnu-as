@@ -4,10 +4,10 @@
 CC = gcc
 
 # Flags for the compiler
-CFLAGS = -g -static -m64
+CFLAGS = -g -no-pie -fno-pie -static -lc
 
 # Source files
-SRC_FILES = sample.s dep1.s
+SRC_FILES = sample.s
 
 # Object files
 OBJ_FILES = $(SRC_FILES:.s=.o)
