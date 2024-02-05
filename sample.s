@@ -10,52 +10,49 @@
         .ascii "odd.\0"
     evenStr:
         .ascii "even.\0"
-    num:
-        .quad 0
+    
+    file1path:
+        .ascii "input.txt\0"
+    file2path:
+        .ascii "output.txt\0"
+    file1mode:
+        .ascii "r\0"
+    file2mode:
+        .ascii "w\0"
 
-.equ LOCAL_NUMBER, -8
+    iomode:
+        .ascii "%d\0"
+
+.equ INPUT_FD, -8
+.equ OUTPUT_FD, -16
+.equ NUMBER, -24
 
     main:
-        enter $16, $0
+        enter $32, $0
 
-        movq stdout, %rdi
-        movq $prompt, %rsi
-        movq $0, %rax
-        call fprintf
+        movq $file1path, %rdi
+        movq $file1mode, %rsi
+        call fopen
+        movq %rax, INPUT_FD(%rbp)
 
-        movq stdin, %rdi
-        movq $inputStr, %rsi
-        leaq LOCAL_NUMBER(%rbp), %rdx
+        movq $file2path, %rdi
+        movq $file2mode, %rsi
+        call fopen
+        movq %rax, OUTPUT_FD(%rbp)
+
+        movq INPUT_FD(%rbp), %rdi
+        movq $iomode, %rsi
+        leaq NUMBER(%rbp), %rdx
         movq $0, %rax
         call fscanf
 
-        movq LOCAL_NUMBER(%rbp), %rcx
+        movq OUTPUT_FD(%rbp), %rdi
+        movq $iomode, %rsi
+        movq NUMBER(%rbp), %rdx
+        movq $0, %rax
+        call fprintf
 
-        movq $2, %rbx
-        divq %rbx
-        cmpq $0, %rdx
-        jz even
-        jnz odd
-        
     finish:
         movq %rax, %rdi
         movq $60, %rax
         syscall
-
-    even:
-        movq stdout, %rdi
-        movq $numStr, %rsi
-        movq %rcx, %rdx
-        movq $evenStr, %rcx
-        call fprintf
-
-        ret
-
-    odd:
-        movq stdout, %rdi
-        movq $numStr, %rsi
-        movq %rcx, %rdx
-        movq $oddStr, %rcx
-        call fprintf
-
-        ret
