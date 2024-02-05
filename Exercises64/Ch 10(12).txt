@@ -2,4 +2,13 @@
     See inputOutput.s for implementation.
 
 02.
+    See fileCopy.s for implementation.
+
+03.
+    Edit inputOutput.s. Add jump labels.
+
+04.
+    See odOrEvenLoop.s for implementation.
+
+05.
     

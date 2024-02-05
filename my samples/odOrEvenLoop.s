@@ -13,11 +13,8 @@
     num:
         .quad 0
 
-    scanChar:
-        .ascii "%c\0"
-
     cont:
-        .ascii "Enter Y to continue:\0"
+        .ascii "Enter 1 to continue:\0"
 
 .equ LOCAL_NUMBER, -8
 .equ CONTINUE, -16
@@ -58,12 +55,12 @@
         call fprintf
 
         movq stdin, %rdi
-        movq $scanChar, %rsi
+        movq $inputStr, %rsi
         leaq CONTINUE(%rbp), %rdx
         movq $0, %rax
         call fscanf
 
-        cmpb $'Y', CONTINUE(%rbp)
+        cmpq $1, CONTINUE(%rbp)
         jne finish
         je loop
 
