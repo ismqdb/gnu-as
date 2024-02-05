@@ -8,7 +8,7 @@
     Edit inputOutput.s. Add jump labels.
 
 04.
-    See odOrEvenLoop.s for implementation.
+    See oddOrEvenLoop.s for implementation.
 
 05.
-    
+    See oddOrEvenYes.s from implementation.
