@@ -14,7 +14,7 @@
         .quad 0
 
     scanChar:
-        .ascii "%c\0"
+        .ascii " %c\0" # Prepend blank space to discard \n
 
     cont:
         .ascii "Enter Y to continue:\0"
@@ -37,13 +37,13 @@
             movq $0, %rax
             call fscanf
 
-            movq LOCAL_NUMBER(%rbp), %rcx
+            movq LOCAL_NUMBER(%rbp), %rax
 
             movq $2, %rbx
             divq %rbx
             cmpq $0, %rdx
-            call even
-            call odd
+            je even
+            jne odd
         jmp loop
 
         endloop:
@@ -75,17 +75,17 @@
     even:
         movq stdout, %rdi
         movq $numStr, %rsi
-        movq %rcx, %rdx
+        movq LOCAL_NUMBER(%rbp), %rdx
         movq $evenStr, %rcx
         call fprintf
 
-        call continue
+        jmp continue
 
     odd:
         movq stdout, %rdi
         movq $numStr, %rsi
-        movq %rcx, %rdx
+        movq LOCAL_NUMBER(%rbp), %rdx
         movq $oddStr, %rcx
         call fprintf
 
-        ret 
+        jmp continue
