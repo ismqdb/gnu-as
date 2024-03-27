@@ -47,7 +47,7 @@ allocate_move_break:
 
     # Address is in %r8 - mark size and availability
     movq $1, HDR_IN_USE_OFFSET(%r8)
-    movq $1, HDR_SIZE_OFFSET(%r8)
+    movq %rdx, HDR_SIZE_OFFSET(%r8)
 
     # Actual return value is beyond our header
     addq $HEADER_SIZE, %r8
