@@ -6,16 +6,18 @@
         .quad 0
     format:
         .ascii "Address = %x\n"
+    counter:
+        .quad 0
 
 .section .text
-.equ BLOCK_SIZE, 256
+.equ BLOCK_SIZE, 17
 
 main:
     movq $BLOCK_SIZE, %rdi
     call allocate
 
-    movq %rax, %rbx 
-    movq %rax, memloc
+    movq %rdi, %rbx 
+    movq %rdi, memloc
 
     movq $format, %rdi
     movq %rbx, %rsi
@@ -27,6 +29,7 @@ main:
     movq $BLOCK_SIZE-1, %rdx
     call memset
 
+    movq $'\n', BLOCK_SIZE-2(%rbx)
     movq $'\0', BLOCK_SIZE-1(%rbx)
 
     movq $1, %rax
