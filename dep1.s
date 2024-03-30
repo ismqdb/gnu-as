@@ -38,6 +38,8 @@ allocate_move_break:
     movq %rcx, %rdi
     addq %rdx, %rdi
 
+    call check_alignment
+
     # Save this value
     movq %rdi, memory_end
 
@@ -83,6 +85,8 @@ allocate_loop:
     cmpq %rdx, HDR_SIZE_OFFSET(%rsi)
     jb try_next_block
 
+    call check_alignment
+
     # This block fits
     # Mark it as unavailable
     movq $1, HDR_IN_USE_OFFSET(%rsi)
@@ -98,6 +102,27 @@ try_next_block:
     # This block didn't work, move to the next one
     addq HDR_SIZE_OFFSET(%rsi), %rsi
     jmp allocate_loop
+
+check_alignment:
+    pushq %rax
+    pushq %rbx
+    pushq %rdx
+
+    movq %rdi, %rax
+    movq $0, %rdx
+    movq $16, %rbx
+    divq %rbx
+
+    cmpq $0, %rdx
+    jnz fix_align
+
+        after_fix_align:
+
+    ret
+
+fix_align:
+    addq %rdx, %rdi
+    jmp after_fix_align
 
 deallocate:
     # Free is simple - just mark the block as unavailable
