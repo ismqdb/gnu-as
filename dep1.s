@@ -6,12 +6,15 @@
         .quad 0
     memory_end:
         .quad 0
+    amount:
+        .quad 0
 
 .section .text
 .equ HEADER_SIZE, 16
 .equ HDR_IN_USE_OFFSET, 0
 .equ HDR_SIZE_OFFSET, 8
 .equ BRK_SYSCALL, 12
+.equ MMAP_SYSCALL, 9
 
 # Register usage:
 # %rdx - size requested
@@ -38,14 +41,19 @@ allocate_move_break:
     movq %rcx, %rdi
     addq %rdx, %rdi
 
-    call check_alignment
-
     # Save this value
     movq %rdi, memory_end
 
-    # Tell linux where the new break is
-    movq $BRK_SYSCALL, %rax
+    movq $MMAP_SYSCALL, %rax
+    #movq $0, %rdi
+    movq amount, %rsi
+    movq $0x03, %rdx
+    movq $0x22, %r10
+    movq $-1, %r8
+    movq $0, %r9
     syscall
+
+    movq %rax, %r8
 
     # Address is in %r8 - mark size and availability
     movq $1, HDR_IN_USE_OFFSET(%r8)
@@ -59,6 +67,7 @@ allocate_move_break:
 allocate:
     # Save the amount requested into %rdx
     movq %rdi, %rdx
+    movq %rdi, amount
 
     # Actual amount needed is actually larger
     addq $HEADER_SIZE, %rdx
@@ -85,8 +94,6 @@ allocate_loop:
     cmpq %rdx, HDR_SIZE_OFFSET(%rsi)
     jb try_next_block
 
-    call check_alignment
-
     # This block fits
     # Mark it as unavailable
     movq $1, HDR_IN_USE_OFFSET(%rsi)
@@ -102,32 +109,6 @@ try_next_block:
     # This block didn't work, move to the next one
     addq HDR_SIZE_OFFSET(%rsi), %rsi
     jmp allocate_loop
-
-check_alignment:
-    pushq %rax
-    pushq %rbx
-    pushq %rdx
-
-    movq %rdi, %rax
-    movq $0, %rdx
-    movq $16, %rbx
-    divq %rbx
-
-    cmpq $0, %rdx
-    jnz fix_align
-
-        after_fix_align:
-
-    popq %rdx
-    popq %rbx
-    popq %rax
-
-    ret
-
-fix_align:
-    addq $16, %rdi
-    subq %rdx, %rdi
-    jmp after_fix_align
 
 deallocate:
     # Free is simple - just mark the block as unavailable
