@@ -4,8 +4,6 @@
     outp:
         .ascii "Hello.\n\0"
 
-.section .text
-
 main:
     enter $0, $0
 
