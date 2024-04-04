@@ -44,8 +44,11 @@ allocate_move_break:
     # Save this value
     movq %rdi, memory_end
 
+    pushq %rdx
+    pushq %r8
+
     movq $MMAP_SYSCALL, %rax
-    movq $0, %rdi
+    movq memory_start, %rdi
     movq size_requested, %rsi
     movq $0x03, %rdx
     movq $0x22, %r10
@@ -53,7 +56,9 @@ allocate_move_break:
     movq $0, %r9
     syscall
 
-    movq %rax, %r8
+    popq %r8
+    popq %rdx
+    #movq %rax, %r8
 
     # Address is in %r8 - mark size and availability
     movq $1, HDR_IN_USE_OFFSET(%r8)
@@ -110,33 +115,7 @@ try_next_block:
     addq HDR_SIZE_OFFSET(%rsi), %rsi
     jmp allocate_loop
 
-check_alignment:
-    pushq %rax
-    pushq %rbx
-    pushq %rdx
-
-    movq %rdi, %rax
-    movq $0, %rdx
-    movq $16, %rbx
-    divq %rbx
-
-    cmpq $0, %rdx
-    jnz fix_align
-
-        after_fix_align:
-
-    popq %rdx
-    popq %rbx
-    popq %rax
-
-    ret
-
-fix_align:
-    addq $16, %rdi
-    subq %rdx, %rdi
-    jmp after_fix_align
-
 deallocate:
     # Free is simple - just mark the block as unavailable
-    movq $0, HDR_IN_USE_OFFSET-HEADER_SIZE(%rdi)
+    call munmap
     ret

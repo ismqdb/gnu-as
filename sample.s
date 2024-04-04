@@ -10,13 +10,21 @@
         .quad 0
 
 .section .text
-.equ BLOCK_SIZE, 17
+.equ BLOCK_SIZE, 120
 
 main:
     movq $BLOCK_SIZE, %rdi
     call allocate
 
     movq %rax, %rdi
+    movq $BLOCK_SIZE, %rsi
+    call deallocate
+
+    movq $200, %rdi
+    call allocate
+
+    movq %rax, %rdi
+    movq $200, %rsi
     call deallocate
 
     programEnd:
