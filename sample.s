@@ -1,20 +1,24 @@
 .globl main
+.globl allocate, deallocate
 
 .section .data
-    outp:
-        .ascii "Hello.\n\0"
+    memloc:
+        .quad 0
+    format:
+        .ascii "Address = %x\n"
+    counter:
+        .quad 0
 
 .section .text
+.equ BLOCK_SIZE, 17
 
 main:
-    enter $0, $0
+    movq $BLOCK_SIZE, %rdi
+    call allocate
 
-    movq stdout@GOTPCREL(%rip), %rdi
-    movq (%rdi), %rdi
-    leaq outp(%rip), %rsi
-    call fprintf
+    movq %rax, %rdi
+    call deallocate
 
-    movq $0, %rax
-
-    leave
-    ret
+    programEnd:
+        movq $60, %rax
+        syscall

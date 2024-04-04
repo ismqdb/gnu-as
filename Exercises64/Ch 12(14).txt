@@ -8,4 +8,4 @@
     See alignedAlloc.s for implementation.
 
 04.
-    See mmapImpl.s for implementation.
+    See mmapDriver.s and mmapImpl.s for implementation.
