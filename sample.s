@@ -9,9 +9,7 @@
 main:
     enter $0, $0
 
-    movq stdout, %rdi
-    movq $outp, %rsi
-    call fprintf
+    call printstuff
 
     movq $0, %rax
     leave
