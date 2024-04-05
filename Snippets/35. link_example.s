@@ -4,11 +4,13 @@
     outp:
         .ascii "Hello.\n\0"
 
+.section .text
+
 main:
-    enter $0, 0
+    enter $0, $0
 
     movq stdout, %rdi
-    movq $output, %rsi
+    movq $outp, %rsi
     call fprintf
 
     movq $0, %rax

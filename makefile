@@ -4,7 +4,7 @@
 CC = gcc
 
 # Flags for the compiler
-CFLAGS = -g -O0 -no-pie -fno-pie -static -lc
+CFLAGS = -g -O0 -no-pie -fno-pie -rdynamic -lc
 
 # Source files
 SRC_FILES = sample.s dep1.s #dep1.c
