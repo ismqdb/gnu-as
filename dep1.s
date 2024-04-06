@@ -1,17 +1,15 @@
-.globl printstuff
+.globl fprintf
 
 .section .data
 mytext:
-    .ascii "Hello there.\n\0"
+    "Haha! I intercepted you.\n\0"
+mytextend:
 
-.section .text
-printstuff:
-    enter $0, $0
-
-    movq stdout@GOTPCREL(%rip), %rdi
-    movq (%rdi), %rdi
+.section .text:
+fprintf:
+    movq $1, %rax
+    movq $1, %rdi
     leaq mytext(%rip), %rsi
-    call fprintf@plt
-
-    leave 
+    movq $(mytextend - mytext), %rdx
+    syscall
     ret
