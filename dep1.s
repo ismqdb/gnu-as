@@ -1,17 +1,11 @@
-.globl printstuff
+.globl multbyten
 
 .section .data
-mytext:
-    .ascii "Hello there.\n\0"
+    ten:
+        .quad 10
 
 .section .text
-printstuff:
-    enter $0, $0
-
-    movq stdout@GOTPCREL(%rip), %rdi
-    movq (%rdi), %rdi
-    leaq mytext(%rip), %rsi
-    call fprintf@plt
-
-    leave 
+multbyten:
+    movq ten(%rip), %rax
+    imulq %rdi
     ret

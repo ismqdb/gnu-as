@@ -1,0 +1,10 @@
+01.
+    See oddOrEvenPie.s for implementation.
+
+02-03.
+    export LD_LIBRARY_PATH=.
+    gcc -shared factorial.s -o libmymath.so
+    gcc -rdynamic dep1.c -lmymath -L . -o sample
+
+04.
+    Done.
