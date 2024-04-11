@@ -60,7 +60,7 @@ myfunc2_exceptionhandler:
     addq $8, %rsp   # get rid of return address
     jmp *(%rsp)     # jump to exception handler
 
-myfunc:
+myfunc3:
     enter $0, $0
 
     // Throw
